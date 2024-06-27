@@ -1,0 +1,180 @@
+#!/bin/bash
+
+#This is William's setup for arch linux. 
+#Requires a arch system or a distro based on arch (only tested on arch linux).
+#Developer Melchizedek William Shah
+
+clear
+
+echo "
+ __  __       ____       _               
+|  \/  |_   _/ ___|  ___| |_ _   _ _ __  
+| |\/| | | | \___ \ / _ \ __| | | | '_ \ 
+| |  | | |_| |___) |  __/ |_| |_| | |_) |
+|_|  |_|\__, |____/ \___|\__|\__,_| .__/ 
+        |___/                     |_|    
+"
+
+sleep 1
+
+echo "This is William's Arch Linux setup."
+echo "This script requires sudo privileges."
+echo "Do you want to continue? (y/n)"
+read response
+if [[ $response == "Y" || $response == "y" ]]; then
+  echo "Starting MySetup!"
+else
+  echo "Exiting...."
+  sleep 2
+  exit 0
+fi
+
+sleep 2
+clear
+
+## Configuring pacman ##
+
+echo " ____                                  "
+echo "|  _ \ __ _  ___ _ __ ___   __ _ _ __ " 
+echo "| |_) / _\` |/ __| '_ \` _ \ / _\` | '_ \ "
+echo "|  __/ (_| | (__| | | | | | (_| | | | |"
+echo "|_|   \__,_|\___|_| |_| |_|\__,_|_| |_|"
+echo "                                       
+      "
+
+
+echo "Do you want to configure pacman? (y/n)"
+read response
+if [[ $response == "Y" || $response == "y" ]]; then
+  echo "Configuring pacman"
+  sudo cp pacman.conf /etc/pacman.conf
+  sudo pacman -Syu --noconfirm
+else 
+  echo "Skipping the configuration of pacman."
+fi
+
+sleep 2
+clear
+
+## Configuring the issue file ##
+
+echo "  ___                    "
+echo " |_ _|___ ___ _   _  ___ "
+echo "  | |/ __/ __| | | |/ _ \\"
+echo "  | |\__ \\__ \\ |_| |  __/"
+echo " |___|___/___/\\__,_|\\___|"
+echo "                          "
+
+echo "Do you want to configure the tty? (y/n)"
+read response
+if [[ $response == "Y" || $response == "y" ]]; then
+    sudo cp issue /etc/issue
+else 
+    echo "Skipping tty configuration."
+fi
+
+sleep 2
+clear
+
+
+
+##Configuring Grub##
+
+echo "  ____            _     "
+echo " / ___|_ __ _   _| |__  "
+echo "| |  _| '__| | | | '_ \ "
+echo "| |_| | |  | |_| | |_) |"
+echo " \____|_|   \__,_|_.__/ "
+echo "                        "
+
+echo "Do you want to make the grub timeout 0 sec? (y/n)"
+read response
+if [[ $response == "y" || $response == "Y" ]]; then
+  echo "The configuration will start now..."
+  sudo cp -r grub /etc/default/grub
+  sudo grub-mkconfig -o /boot/grub/grub.cfg
+else
+  echo "Skipping grup configuration."
+fi
+
+sleep 2
+clear
+
+##KDE Plasma##
+
+echo " ____  _                           "
+echo "|  _ \| | __ _ ___ _ __ ___   __ _ "
+echo "| |_) | |/ _\` / __| '_ \` _ \ / _\` |"
+echo "|  __/| | (_| \__ \ | | | | | (_| |"
+echo "|_|   |_|\__,_|___/_| |_| |_|\__,_|"
+
+echo "Install KDE Plasma? (y/n)"
+read response
+
+if [[ $response == "Y" || $response == "y" ]]; then
+  sudo pacman -Syu --noconfirm
+  sudo pacman -S plasma --needed --noconfirm
+else 
+  echo "Skipping installation of Plasma, continuing."
+fi 
+
+sleep 2
+clear
+
+## Setup Auto Cpu Freq ##
+
+echo "    _         _         ____             _____               "
+echo "   / \  _   _| |_ ___  / ___|_ __  _   _|  ___| __ ___  __ _ "
+echo "  / _ \| | | | __/ _ \| |   | '_ \| | | | |_ | '__/ _ \/ _\` |"
+echo " / ___ \ |_| | || (_) | |___| |_) | |_| |  _|| | |  __/ (_| |"
+echo "/_/   \_\__,_|\__\___/ \____| .__/ \__,_|_|  |_|  \___|\__, |"
+echo "                            |_|                           |_|"
+
+echo "Setup Auto Cpu Freq? (y/n)"
+read response
+if [[ $response == "Y" || $response == "y" ]]; then 
+  echo "Setup auto cpu freq has started."
+  git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+  cd auto-cpufreq || exit
+  sudo ./auto-cpufreq-installer
+  sleep 2
+  clear
+  sudo auto-cpufreq --install
+  sleep 2
+  clear
+else 
+  echo "Skipping setup auto cpu freq!"
+  sleep 2
+  clear
+fi
+
+
+##Ollama Setup##
+
+echo "  ___  _ _                            _    _ "
+echo " / _ \| | | __ _ _ __ ___   __ _     / \  (_)"
+echo "| | | | | |/ _\`| '_ \` _\ / _  \`  / _ \ | |"
+echo "| |_| | | | (_| | | | | | | (_| |  / ___ \| |"
+echo " \___/|_|_|\__,_|_| |_| |_|\__,_| /_/   \_\_|"
+echo "                                             "
+
+echo "Do you want to install ollama ai? (y/n)"
+read response 
+if [[ $response == "y" || $response == "Y" ]]; then
+  echo "Installing ollama ai"
+  curl -fsSL https://ollama.com/install.sh | sh 
+else
+  echo "Skipping the installation of ollama ai."
+fi
+sleep 2
+clear
+
+
+echo "First part of 'MySetup' is done."
+echo "Now run MySetupScript-2, to continue MySetup"
+echo "Press "enter" to exit"
+read response
+
+if [[ $response == "RETURN" ]]; then
+    exit
+fi

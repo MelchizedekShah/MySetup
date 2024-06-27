@@ -1,0 +1,257 @@
+#!/bin/bash
+#This is William's setup for arch linux. 
+#Requires a arch system or a distro based on arch (only tested on arch linux).
+#Developer Melchizedek William Shah
+#The config files for kitty swaylock waybar wlogout and wofi I copied from other devlopers.
+
+
+
+##Hyprland setup##
+
+echo " __  __       _       ___           _        _ _       _   _             "
+echo "|  \/  | __ _(_)_ __ |_ _|_ __  ___| |_ __ _| | | __ _| |_(_) ___  _ __  "
+echo "| |\/| |/ _\` | | '_ \ | || '_ \/ __| __/ _\` | | |/ _\` | __| |/ _ \| '_ \ "
+echo "| |  | | (_| | | | | || || | | \__ \ || (_| | | | (_| | |_| | (_) | | | |"
+echo "|_|  |_|\__,_|_|_| |_|___|_| |_|___/\__\__,_|_|_|\__,_|\__|_|\___/|_| |_|"
+
+
+echo "Do you want to continue with the hyprland setup? (y/n)"
+read response
+
+if [[ $response == "y" || $response == "Y" ]]; then
+  echo "The setup will start!"
+else
+  echo "The setup will be cancelled!"
+  exit 0
+fi
+
+sleep 2
+clear
+
+## Check for yay ##
+
+echo " _   _  __ _ _   _ "
+echo "| | | |/ _\` | | | |"
+echo "| |_| | (_| | |_| |"
+echo " \__, |\__,_|\__, |"
+echo " |___/       |___/ "
+
+EXISTYAY=/sbin/yay 
+
+if [[ -f $EXISTYAY ]]; then
+  echo "Yay is installed, continuing installation."
+else
+  echo "Yay is required for the installation. Do you want to install it? (y/n)"
+  read -r response
+  if [[ $response == "y" || $response == "Y" ]]; then
+    echo "The installation of yay will begin."
+    git clone https://aur.archlinux.org/yay.git
+    cd yay || exit
+    makepkg -si --noconfirm
+    cd ..
+  else
+    echo "The installation is cancelled"
+    exit 0
+  fi
+fi
+
+sleep 2
+clear
+
+## Installing the packages ##
+
+echo "                  _                         "
+echo " _ __   __ _  ___| | ____ _  __ _  ___  ___ "
+echo "| '_ \ / _\` |/ __| |/ / _\` |/ _\` |/ _ \/ __|"
+echo "| |_) | (_| | (__|   < (_| | (_| |  __/\__ \\"
+echo "| .__/ \__,_|\___|_|\_\__,_|\__, |\___||___/"
+echo "|_|                         |___/           "
+
+echo "Do you want to install the packages required for hyprland and basic utilities? (y/n)"
+read response
+if [[ $response == "Y" || $response == "y" ]]; then
+    echo "The installation of the packages will continue!"
+else 
+    echo "Are you sure? This is required!! (y/n)"
+    read response1 
+    if [[ $response1 == "y" || $response1 == "Y" ]]; then
+        echo "Exiting, the installation of the packages was mandatory!"
+        exit
+    else
+        echo "The installation of the packages will continue!"
+    fi
+fi
+
+sleep 2
+clear
+
+## Add extra packages here ##
+swrequired="yay -S hyprland kitty waybar swww \ 
+swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git \
+swappy grim slurp thunar polkit-gnome python-requests pamixer \
+pavucontrol brightnessctl bluez bluez-utils blueman \
+network-manager-applet gvfs thunar-archive-plugin file-roller btop \
+pacman-contrib starship ttf-jetbrains-mono-nerd noto-fonts-emoji 
+lxappearance xfce4-settings"
+
+yay -Syu --noconfirm
+yay -S $swrequired --needed --noconfirm  
+
+clear
+
+## Start the Bluetooth service ##
+echo -e "Starting the Bluetooth Service..."
+sudo systemctl enable --now bluetooth.service
+    
+sleep 2
+clear
+
+## Copying the config files ##
+echo "  ____                  "
+echo " / ___|___  _ __  _   _ "
+echo "| |   / _ \| '_ \| | | |"
+echo "| |__| (_) | |_) | |_| |"
+echo " \____\___/| .__/ \__, |"
+echo "           |_|    |___/ "
+
+echo "Do you want to copy the config files? (y/n)"
+read response
+
+if [[ $response == "y" || $response == "Y" ]]; then
+  echo "Copying config files...."
+  for DIR in kitty hypr swaylock waybar wlogout wofi mako
+  do
+    DIRPATH=~/.config/$DIR
+    echo "Copying $DIR to $DIRPATH"
+    cp -r $DIR ~/.config  
+  done
+fi 
+
+## Set some files as executable ##
+echo "Setting some files as executable." 
+chmod +x ~/.config/hypr/scripts/bgaction
+chmod +x ~/.config/waybar/scripts/ai.sh
+chmod +x ~/.config/hypr/scripts/xdg-portal-hyprland
+
+
+sleep 3
+clear
+
+echo "               _ _                                 "
+echo "__      ____ _| | |_ __   __ _ _ __   ___ _ __ ___ "
+echo "\ \ /\ / / _\` | | | '_ \ / _\` | '_ \ / _ \ '__/ __|"
+echo " \ V  V / (_| | | | |_) | (_| | |_) |  __/ |  \__ \\"
+echo "  \_/\_/ \__,_|_|_| .__/ \__,_| .__/ \___|_|  |___/"
+echo "                  |_|         |_|                   "
+
+
+echo "Do you want to copy some wallpapers? (y/n)"
+read response
+
+if [[ $response == "y" || $response == "y" ]]; then
+  echo "Copying folder wallpapers to: $HOME"
+  cp -r wallpapers ~/
+else 
+  echo "Skipping copying wallpapers to: $HOME"
+fi
+sleep 2
+clear
+
+## Install starship for terminal ##
+
+echo " ____  _                 _     _       "
+echo "/ ___|| |_ __ _ _ __ ___| |__ (_)_ __  "
+echo "\___ \| __/ _\` | '__/ __| '_ \| | '_ \ "
+echo " ___) | || (_| | |  \__ \ | | | | |_) |"
+echo "|____/ \__\__,_|_|  |___/_| |_|_| .__/ "
+echo "                                |_|    "
+
+echo "Would you want to activate the starship shell? (y/n)"
+read response
+if [[ $response == "Y" || $response == "y" ]]; then
+  echo 'eval "$(starship init bash)"' >> ~/.bashrc
+  cp starship.toml ~/.config
+else
+  echo "Starship Shell will not be set up."
+fi
+
+sleep 2
+clear
+
+
+echo "
+ ____      _     _           
+/ ___|  __| | __| |_ __ ___  
+\___ \ / _\` |/ _\` | '_ \`_\ 
+ ___) | (_| | (_| | | | | | |
+|____/ \__,_|\__,_|_| |_| |_|                             
+"
+
+echo "Do you want to enable sddm? (y/n)?"
+read response
+
+if [[ $response == "y" || $response == "Y" ]]; then
+  echo "Enabling.."
+  sudo systemctl enable sddm.service
+  echo "To change the look, use the system settings from plasma."
+  echo "Do you want to install sddm-sugar-candy? (y/n)"
+  read response1
+  if [[ $response1 == "y" || $response1 == "Y" ]]; then
+    echo "Installing sugar-candy..."
+    yay -S sddm-sugar-candy-git --noconfirm --needed
+  else 
+    echo "Skipping..."
+  fi
+else
+  echo "Skipping sddm setup."
+fi
+sleep 2
+clear
+
+
+
+
+
+#setup the first look and feel as dark
+xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Adwaita-dark"
+gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+gsettings set org.gnome.desktop.interface icon-theme "Adwaita-dark"
+
+
+##Last update##
+yay -Syu --noconfirm
+clear
+
+
+
+## Setup is done ##
+
+echo " ____       _                 _           _                  _ "
+echo "/ ___|  ___| |_ _   _ _ __   (_)___    __| | ___  _ __   ___| |"
+echo "\___ \ / _ \ __| | | | '_ \  | / __|  / _\` |/ _ \| '_ \ / _ \ |"
+echo " ___) |  __/ |_| |_| | |_) | | \__ \ | (_| | (_) | | | |  __/_|"
+echo "|____/ \___|\__|\__,_| .__/  |_|___/  \__,_|\___/|_| |_|\___(_)"
+echo "                     |_|                                        "
+
+echo "Do you want to reboot, shutdown your system or exit the script? (r/s/e)"
+read response
+if [[ $response == "r" || $response == "R" ]]; then
+  echo "Your system will reboot now...."
+  sleep 2
+  sudo reboot
+elif [[ $response == "s" || $response == "S" ]]; then
+  echo "Your system will shutdown now...."
+  sleep 2
+  sudo shutdown now
+elif [[ $response == "e" || $response == "E" ]]; then
+  echo "You will exit the script..."
+  sleep 2
+  exit 
+else
+  clear
+  exit 
+fi
+
+
+
