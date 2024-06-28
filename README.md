@@ -12,6 +12,11 @@ Run the scripts:
 
 Note: Some configurations are adapted from other repositories, while others have been tweaked.
 
+![Ai](images/ai.png)
+![Plasma](images/plasma.png)
+![Terminal](images/terminal.png)
+![rofi](images/rofi.png)
+
 
 
 
