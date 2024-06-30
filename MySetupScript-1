@@ -169,7 +169,32 @@ fi
 sleep 2
 clear
 
+###firewall setup###
 
+echo "
+
+  __ _                        _ _ 
+ / _(_)_ __ _____      ____ _| | |
+| |_| |  __/ _ \ \ /\ / / _  | | |
+|  _| | | |  __/\ V  V / (_| | | |
+|_| |_|_|  \___| \_/\_/ \__,_|_|_|
+                                  "
+
+echo "Do you want to setup ufw? (y/n)"
+read response
+
+if [[ $response == "Y" || $response == "y" ]]; then
+  echo "The setup of ufw will begin...."
+  sudo pacman -S ufw gufw --needed --noconfirm
+  sudo systemctl enable ufw 
+  sudo systemctl start ufw
+  sudo ufw deny 22/tcp
+else 
+  echo "Skipping ufw setup."
+fi
+
+
+###Exiting script####
 echo "First part of 'MySetup' is done."
 echo "Now run MySetupScript-2, to continue MySetup"
 echo "Press "enter" to exit"
@@ -178,3 +203,5 @@ read response
 if [[ $response == "RETURN" ]]; then
     exit
 fi
+
+
