@@ -92,7 +92,32 @@ yay -Syu --noconfirm
 yay -S $swrequired --needed --noconfirm  
 
 sleep 3
+clear
 
+echo "These packages can include various utilities, tools, and software that can help streamline your workflow and make it easier to perform various tasks. Do you want to install them? (y/n)"
+read response
+
+if [[ $response == "Y" || $response == "y" ]]; then
+  echo "Installing packages..."
+  sudo pacman -S p7zip unrar tar rsync git neofetch htop exfat-utils fuse-exfat ntfs-3g flac jasper aria2  --needed --noconfirm
+else 
+  echo "Skipping the installation of these packages."
+fi
+
+sleep 2
+clear
+
+echo "Do you want to setup a java environment on your setup? (y/n)"
+read response
+
+if [[ $response == "y" || $response == "Y" ]]; then
+  echo "Seting up java environment..."
+  sudo pacman -S jdk-openjdk --noconfirm --needed
+else
+  echo "Skipping this set up."
+fi
+
+sleep 2
 clear
 
 ## Start the Bluetooth service ##
