@@ -153,7 +153,9 @@ echo "Setting some files as executable."
 chmod +x ~/.config/hypr/scripts/bgaction
 chmod +x ~/.config/waybar/scripts/ai.sh
 chmod +x ~/.config/hypr/scripts/xdg-portal-hyprland
-
+chmod +x ~/wallpapers/wallpapers
+chmod +x ~/.config/waybar/scripts/allfloat.sh
+chmod +x ~/.config/waybar/scripts/cam.sh
 
 sleep 3
 clear
