@@ -1,0 +1,47 @@
+#!/bin/bash
+
+clear
+
+# Function to display available wallpapers
+display_wallpapers() {
+  echo "Available wallpapers:"
+  for i in "${!wallpapers[@]}"; do
+    echo "$i) ${wallpapers[$i]}"
+  done
+}
+
+# Main script execution
+wallpapers=()
+while IFS= read -r -d '' file; do
+  wallpapers+=("$(basename "$file")")
+done < <(find ~/wallpapers -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0)
+
+echo "Type the number corresponding to the image you want to set as wallpaper, or type 'random' for a random wallpaper!"
+display_wallpapers
+
+read input
+
+# Check if input is random
+if [[ $input == "random" ]]; then
+  random_index=$((RANDOM % ${#wallpapers[@]}))
+  name=${wallpapers[$random_index]}
+else
+  # Check if input is a valid number
+  if [[ $input =~ ^[0-9]+$ ]] && [[ $input -ge 0 ]] && [[ $input -lt ${#wallpapers[@]} ]]; then
+    name=${wallpapers[$input]}
+  else
+    echo "Invalid input. Please run the script again."
+    exit 1
+  fi
+fi
+
+# Check if the file exists
+if [[ -f ~/wallpapers/$name ]]; then
+  cp ~/wallpapers/$name ~/.config/hypr/wallpaper.jpg
+  hyprctl reload
+  echo "Wallpaper set to $name"
+else
+  echo "File does not exist. Please run the script again."
+  exit 1
+fi
+
