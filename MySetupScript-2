@@ -120,6 +120,18 @@ fi
 sleep 2
 clear
 
+echo "Do you want to install matrix packages? (y/n)"
+read response
+
+if [[ $response == "Y" || $response == "y" ]]; then
+  sudo pacman -S cmatrix --noconfirm
+  yay -S unimatrix --noconfirm
+else
+  echo "Skipping these packages."
+
+sleep 2
+clear
+
 ## Start the Bluetooth service ##
 echo -e "Starting the Bluetooth Service..."
 sudo systemctl enable --now bluetooth.service
