@@ -8,13 +8,14 @@
 
 ##Hyprland setup##
 
-echo " __  __       _       ___           _        _ _       _   _             "
-echo "|  \/  | __ _(_)_ __ |_ _|_ __  ___| |_ __ _| | | __ _| |_(_) ___  _ __  "
-echo "| |\/| |/ _\` | | '_ \ | || '_ \/ __| __/ _\` | | |/ _\` | __| |/ _ \| '_ \ "
-echo "| |  | | (_| | | | | || || | | \__ \ || (_| | | | (_| | |_| | (_) | | | |"
-echo "|_|  |_|\__,_|_|_| |_|___|_| |_|___/\__\__,_|_|_|\__,_|\__|_|\___/|_| |_|"
-
-
+echo "
+ _                      _                 _            _               
+| |__  _   _ _ __  _ __| | __ _ _ __   __| |  ___  ___| |_ _   _ _ __  
+|  _ \| | | |  _ \|  __| |/ _  |  _ \ / _  | / __|/ _ \ __| | | |  _ \ 
+| | | | |_| | |_) | |  | | (_| | | | | (_| | \__ \  __/ |_| |_| | |_) |
+|_| |_|\__, | .__/|_|  |_|\__,_|_| |_|\__,_| |___/\___|\__|\__,_| .__/ 
+       |___/|_|                                                 |_|    
+"
 echo "Do you want to continue with the hyprland setup? (y/n)"
 read response
 
@@ -86,7 +87,7 @@ sleep 2
 clear
 
 ## Add extra packages here ##
-swrequired="hyprland htop okular mpv ranger kitty waybar swww swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git swappy grim slurp thunar polkit-gnome python-requests pamixer pavucontrol brightnessctl bluez bluez-utils blueman network-manager-applet gvfs thunar-archive-plugin file-roller btop pacman-contrib starship ttf-jetbrains-mono-nerd noto-fonts-emoji lxappearance xfce4-settings"
+swrequired="hyprland kate htop okular mpv ranger kitty waybar swww swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git swappy grim slurp thunar polkit-gnome python-requests pamixer pavucontrol brightnessctl bluez bluez-utils blueman network-manager-applet gvfs thunar-archive-plugin file-roller btop pacman-contrib starship ttf-jetbrains-mono-nerd noto-fonts-emoji lxappearance xfce4-settings"
 
 yay -Syu --noconfirm
 yay -S $swrequired --needed --noconfirm  
@@ -168,6 +169,7 @@ chmod +x ~/.config/hypr/scripts/xdg-portal-hyprland
 chmod +x ~/wallpapers/wallpapers
 chmod +x ~/.config/waybar/scripts/allfloat.sh
 chmod +x ~/.config/waybar/scripts/cam.sh
+chmod +X ~/.config/waybar/scripts/matrix.sh
 
 sleep 3
 clear
