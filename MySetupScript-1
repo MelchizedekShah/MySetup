@@ -121,6 +121,40 @@ fi
 sleep 2
 clear
 
+
+##nvidia setup##
+
+echo "
+            _     _ _       
+ _ ____   _(_) __| (_) __ _ 
+|  _ \ \ / / |/ _  | |/ _  |
+| | | \ V /| | (_| | | (_| |
+|_| |_|\_/ |_|\__,_|_|\__,_|
+"
+                       
+echo "This is for plasma, the hyprland setup does not have nvidia gpu configurations and uses the integrated gpu."
+
+gpuPackages="nvidia nvidia-utils nvidia-settings"
+
+echo "These are the packages that are going to be installed: $gpuPackages"
+echo "If you need other gpu packages change the script or install them later."
+
+echo "Do you want to setup nvidia gpu? (y/n)"
+read response
+
+if [[ $response == "y" || $response == "Y" ]]; then
+  echo "Starting.."
+  sudo pacman -S $gpuPackages --noconfirm --needed
+  sudo systemctl enable nvidia-persistenced
+  sudo systemctl start nvidia-persistenced
+else
+  echo "Skipping..."
+fi
+
+sleap 2
+clear
+
+
 ## Setup Auto Cpu Freq ##
 
 echo "    _         _         ____             _____               "
@@ -185,7 +219,7 @@ read response
 
 if [[ $response == "Y" || $response == "y" ]]; then
   echo "The setup of ufw will begin...."
-  sudo pacman -S ufw gufw --needed --noconfirm
+  sudo pacman -S ufw  --needed --noconfirm
   sudo systemctl enable ufw 
   sudo systemctl start ufw
   sudo ufw deny 22/tcp
