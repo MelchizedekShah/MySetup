@@ -171,6 +171,7 @@ chmod +x ~/wallpapers/wallpapers
 chmod +x ~/.config/waybar/scripts/allfloat.sh
 chmod +x ~/.config/waybar/scripts/cam.sh
 chmod +X ~/.config/waybar/scripts/matrix.sh
+chmod +x ~/.config/waybar/scripts/cava.sh
 
 sleep 3
 clear
