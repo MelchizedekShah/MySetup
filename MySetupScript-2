@@ -173,6 +173,7 @@ chmod +x ~/.config/waybar/scripts/cam.sh
 chmod +X ~/.config/waybar/scripts/matrix.sh
 chmod +x ~/.config/waybar/scripts/cava.sh
 chmod +x ~/.config/waybar/scripts/hyprshader.sh
+chmod +x ~/.config/waybar/scripts/reload.sh
 
 sleep 3
 clear
