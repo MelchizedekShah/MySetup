@@ -129,6 +129,7 @@ if [[ $response == "Y" || $response == "y" ]]; then
   yay -S unimatrix --noconfirm
 else
   echo "Skipping these packages."
+fi
 
 sleep 2
 clear
