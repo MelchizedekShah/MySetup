@@ -87,7 +87,7 @@ sleep 2
 clear
 
 ## Add extra packages here ##
-swrequired="hyprland kate htop okular mpv ranger kitty waybar swww swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git swappy grim slurp thunar polkit-gnome python-requests pamixer pavucontrol brightnessctl bluez bluez-utils blueman network-manager-applet gvfs thunar-archive-plugin file-roller btop pacman-contrib starship ttf-jetbrains-mono-nerd noto-fonts-emoji lxappearance xfce4-settings"
+swrequired="hyprland kate hyprshade udiskie htop okular mpv ranger kitty waybar swww swaylock-effects wofi wlogout mako xdg-desktop-portal-hyprland-git swappy grim slurp thunar polkit-gnome python-requests pamixer pavucontrol brightnessctl bluez bluez-utils blueman network-manager-applet gvfs thunar-archive-plugin file-roller btop pacman-contrib starship ttf-jetbrains-mono-nerd noto-fonts-emoji lxappearance xfce4-settings"
 
 yay -Syu --noconfirm
 yay -S $swrequired --needed --noconfirm  
@@ -255,6 +255,9 @@ xfconf-query -c xsettings -p /Net/IconThemeName -s "Adwaita-dark"
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface icon-theme "Adwaita-dark"
 
+#Hyprshade
+hyprshade install
+systemctl --user enable --now hyprshade.timer
 
 ##Last update##
 yay -Syu --noconfirm
